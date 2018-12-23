@@ -22,8 +22,11 @@ SOFTWARE.
 #define D2V_WITCH_GUIWINDOW_H
 
 #include <QtWidgets>
+#include <QIcon>
 
 #include <VapourSynth.h>
+#include <atlstr.h>
+#include <ShlObj.h>
 
 #include "D2V.h"
 #include "FakeFile.h"
@@ -107,7 +110,7 @@ class GUIWindow : public QMainWindow {
     void enableInterface(bool enable);
 
 public:
-    explicit GUIWindow(QWidget *parent = 0);
+    explicit GUIWindow(QWidget *parent = nullptr);
     ~GUIWindow();
 
 public slots:

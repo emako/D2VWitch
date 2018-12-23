@@ -25,3 +25,13 @@ missing
 releases/
 *.html
 *.json
+
+#Qt
+/src/build
+*.user
+
+#FFmpeg
+/src/ffmpeg
+
+#VapourSynth
+/src/vapoursynth

@@ -35,11 +35,11 @@ extern "C" {
 #ifdef _WIN32
 #include <fcntl.h>
 #include <io.h>
-#include <windows.h>
+#include <Windows.h>
 #endif
 
 #include <QApplication>
-
+#include "version.h"
 
 #ifdef D2VWITCH_STATIC_QT
 
@@ -51,7 +51,6 @@ Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 #endif // _WIN32
 
 #endif // D2VWITCH_STATIC_QT
-
 
 #include "Audio.h"
 #include "Bullshit.h"

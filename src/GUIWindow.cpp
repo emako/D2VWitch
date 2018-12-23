@@ -32,9 +32,9 @@ extern "C" {
 #include "ScrollArea.h"
 
 #ifdef _WIN32
-#include <windows.h>
+#include <Windows.h>
 #endif
-
+#include "version.h"
 
 // For QMetaObject::invokeMethod.
 Q_DECLARE_METATYPE(int64_t)
@@ -408,13 +408,18 @@ GUIWindow::GUIWindow(QWidget *parent)
 
     input_list = new ListWidget(this);
     input_list->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    QPushButton *add_button = new QPushButton("&Add files", this);
-    QPushButton *remove_button = new QPushButton("&Remove files", this);
-    QPushButton *move_up_button = new QPushButton("Move &up", this);
-    QPushButton *move_down_button = new QPushButton("Move &down", this);
+    QPushButton *add_button = new QPushButton(QIcon(":/buttons/add.png"), "&Add files", this);
+    QPushButton *remove_button = new QPushButton(QIcon(":/buttons/delete.png"), "&Remove files", this);
+    QPushButton *move_up_button = new QPushButton(QIcon(":/buttons/arrow_up.png"), "Move &up", this);
+    QPushButton *move_down_button = new QPushButton(QIcon(":/buttons/arrow_down.png"), "Move &down", this);
+
+    add_button->setMinimumWidth(110);
+    remove_button->setMinimumWidth(110);
+    move_up_button->setMinimumWidth(110);
+    move_down_button->setMinimumWidth(110);
 
     d2v_edit = new QLineEdit(this);
-    QPushButton *d2v_button = new QPushButton("&Browse", this);
+    QPushButton *d2v_button = new QPushButton(QIcon(":/buttons/folder_magnify.png"), "&Browse", this);
 
     video_list = new QListWidget(this);
     video_group = new QButtonGroup(this);
@@ -462,8 +467,9 @@ GUIWindow::GUIWindow(QWidget *parent)
 
     progress_bar = new QProgressBar(this);
     progress_bar->setMaximum(10000);
-    start_stop_button = new QPushButton("&Engage", this);
+    start_stop_button = new QPushButton(QIcon(":/buttons/wand.png"), "&Engage", this);
     start_stop_button->setEnabled(false);
+    start_stop_button->setMinimumWidth(100);
 
     container_widget = new QStackedWidget(this);
 
@@ -473,10 +479,10 @@ GUIWindow::GUIWindow(QWidget *parent)
     QMenu *file_menu = bar->addMenu(QStringLiteral("&File"));
     QMenu *help_menu = bar->addMenu(QStringLiteral("&Help"));
 
-    QAction *open_action = new QAction(QStringLiteral("&Open video files"), this);
+    QAction *open_action = new QAction(QIcon(":/buttons/film_add.png"), QStringLiteral("&Open video files"), this);
     open_action->setShortcut(QKeySequence(QStringLiteral("Ctrl+O")));
 
-    QAction *quit_action = new QAction(QStringLiteral("&Quit"), this);
+    QAction *quit_action = new QAction(QIcon(":/buttons/door_in.png"), QStringLiteral("&Quit"), this);
     quit_action->setShortcut(QKeySequence(QStringLiteral("Ctrl+Q")));;
 
     QAction *about_action = new QAction(QStringLiteral("&About D2V Witch"), this);
@@ -670,7 +676,7 @@ GUIWindow::GUIWindow(QWidget *parent)
 
         QMessageBox msgbox;
 
-        msgbox.setText(QStringLiteral("<a href='https://github.com/dubhater/D2VWitch'>https://github.com/dubhater/D2VWitch</a>"));
+        msgbox.setText(QStringLiteral("Forked from <a href='https://github.com/dubhater/D2VWitch'>https://github.com/dubhater/D2VWitch</a>"));
 
         QString about = QStringLiteral(
             "Copyright (c) 2016, John Smith\n"
@@ -807,6 +813,8 @@ GUIWindow::GUIWindow(QWidget *parent)
 
 
     initialiseVapourSynth();
+
+    this->resize(580,600);
 }
 
 
