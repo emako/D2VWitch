@@ -719,6 +719,7 @@ GUIWindow::GUIWindow(QWidget *parent)
         msgbox.setDetailedText(about);
 
         msgbox.setWindowTitle(QStringLiteral("About D2V Witch"));
+        msgbox.setWindowIcon(this->windowIcon());
 
         msgbox.setStandardButtons(QMessageBox::Ok);
         msgbox.setDefaultButton(QMessageBox::Ok);
@@ -814,6 +815,7 @@ GUIWindow::GUIWindow(QWidget *parent)
 
     initialiseVapourSynth();
 
+    this->setWindowIcon(QIcon(":/icons/D2VWitch.ico"));
     this->resize(580,600);
 }
 

@@ -18,18 +18,21 @@ PROJECT_DIRECTORY = $$PWD
 COMMON_DIRECTORY = $$PWD
 
 ARCHITECTURE_64_BIT = true
+USING_FFMPEG = true
 
 MOC_DIR = $${PROJECT_DIRECTORY}/generated/moc
 UI_DIR = $${PROJECT_DIRECTORY}/generated/ui
 RCC_DIR = $${PROJECT_DIRECTORY}/generated/rcc
 
-RC_ICONS = $${COMMON_DIRECTORY}/res/icons/d2vwitch.ico
+#RC_ICONS = $${COMMON_DIRECTORY}/res/icons/d2vwitch.ico
 
 FFMPEG_LIB = $${PROJECT_DIRECTORY}/ffmpeg/lib
 FFMPEG_HEADER = $${PROJECT_DIRECTORY}/ffmpeg/include
 
+LIBAV_LIB = $${PROJECT_DIRECTORY}/libav/lib
+LIBAV_HEADER = $${PROJECT_DIRECTORY}/libav/include
+
 INCLUDEPATH += $${PROJECT_DIRECTORY}/vapoursynth
-INCLUDEPATH += $${FFMPEG_HEADER}
 
 CONFIG(debug, debug|release) {
 
@@ -94,14 +97,27 @@ CONFIG(debug, debug|release) {
     DEFINES += NDEBUG
 }
 
-LIBS += -L$${FFMPEG_LIB} -lavcodec
-LIBS += -L$${FFMPEG_LIB} -lavdevice
-LIBS += -L$${FFMPEG_LIB} -lavfilter
-LIBS += -L$${FFMPEG_LIB} -lavformat
-LIBS += -L$${FFMPEG_LIB} -lavutil
-LIBS += -L$${FFMPEG_LIB} -lpostproc
-LIBS += -L$${FFMPEG_LIB} -lswresample
-LIBS += -L$${FFMPEG_LIB} -lswscale
+if($$USING_FFMPEG) {
+    INCLUDEPATH += $${FFMPEG_HEADER}
+    LIBS += -L$${FFMPEG_LIB} -lavcodec
+    #LIBS += -L$${FFMPEG_LIB} -lavdevice
+    #LIBS += -L$${FFMPEG_LIB} -lavfilter
+    LIBS += -L$${FFMPEG_LIB} -lavformat
+    LIBS += -L$${FFMPEG_LIB} -lavutil
+    #LIBS += -L$${FFMPEG_LIB} -lpostproc
+    LIBS += -L$${FFMPEG_LIB} -lswresample
+    LIBS += -L$${FFMPEG_LIB} -lswscale
+} else {
+    INCLUDEPATH += $${LIBAV_HEADER}
+    LIBS += -L$${LIBAV_LIB} -lavcodec
+    LIBS += -L$${LIBAV_LIB} -lavdevice
+    LIBS += -L$${LIBAV_LIB} -lavfilter
+    LIBS += -L$${LIBAV_LIB} -lavformat
+    LIBS += -L$${LIBAV_LIB} -lavutil
+    LIBS += -L$${LIBAV_LIB} -lpostproc
+    LIBS += -L$${LIBAV_LIB} -lswresample
+    LIBS += -L$${LIBAV_LIB} -lswscale
+}
 
 S = $${DIR_SEPARATOR}
 
